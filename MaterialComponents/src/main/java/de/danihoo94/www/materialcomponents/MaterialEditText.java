@@ -116,10 +116,14 @@ public class MaterialEditText extends TextInputLayout {
                 editText.setError(editTextError);
 
                 ColorStateList textColor = a.getColorStateList(R.styleable.MaterialEditTextView_textColor);
-                editText.setTextColor(textColor);
+                if (textColor != null) {
+                    editText.setTextColor(textColor);
+                }
 
                 ColorStateList hintColor = a.getColorStateList(R.styleable.MaterialEditTextView_hintTextColor);
-                editText.setHintTextColor(hintColor);
+                if (hintColor != null) {
+                    editText.setHintTextColor(hintColor);
+                }
 
                 String digits = a.getString(R.styleable.MaterialEditTextView_digits);
                 editText.setKeyListener(DigitsKeyListener.getInstance(digits));

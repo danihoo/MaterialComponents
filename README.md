@@ -24,7 +24,7 @@ As a first step the following components will be available
 
 # About
 
-This library uses the following works of different authors.
+This library uses the following works of other authors.
 
 * Several Material icons kindly provided by Google Inc.
 * The Material Library for Android kindly provided by Google Inc.

@@ -6,7 +6,7 @@
         <attr name="textColor" format="reference|color" />
         <attr name="hintTextColor" format="reference|color" />
         <attr name="digits" format="string" />
-        <attr name="inputType" format="">
+        <attr name="inputType">
             <!-- For documentation see {@link android.text.InputType} -->
             <flag name="none" value="0x00000000" />
             <flag name="text" value="0x00000001" />

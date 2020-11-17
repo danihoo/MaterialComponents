@@ -35,7 +35,7 @@ Add the following repository in your project's build.gradle file:
 allprojects {
     repositories {
         ...
-        <b>maven { url 'https://jitpack.io' }</b>
+        maven { url 'https://jitpack.io' }
         ...
     }
 }
@@ -46,7 +46,7 @@ Add the following dependency in your app's build.gradle file:
 ```
 dependencies {
     ...
-    <b>implementation 'com.github.danihoo:MaterialComponents:[version]'</b>
+    implementation 'com.github.danihoo:MaterialComponents:[version]'
     ...
 }
 ```

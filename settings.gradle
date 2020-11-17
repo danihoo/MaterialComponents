@@ -1,3 +1,4 @@
+include ':SpinnerTest'
 include ':EditTextTest'
 include ':MaterialComponents'
 rootProject.name = "Material"

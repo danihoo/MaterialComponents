@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8f8f8"
+    android:padding="12dp"
+    tools:context=".TestActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/outlined_standard"
+            style="@style/OutlinedEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Standard"
+            android:paddingBottom="12dp" />
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/outlined_texthint"
+            style="@style/OutlinedEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:editTextHint="EditText hint (disappears on input)" />
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/outlined_error"
+            style="@style/OutlinedEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:error="Error at outline"
+            app:errorEnabled="true" />
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/outlined_texterror"
+            style="@style/OutlinedEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:editTextError="Error at EditText" />
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/outlined_textwatcher"
+            style="@style/FilledEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="3" />
+
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/filled_standard"
+            style="@style/FilledEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Standard"
+            android:paddingBottom="12dp" />
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/filled_texthint"
+            style="@style/FilledEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:editTextHint="EditText hint (disappears on input)" />
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/filled_error"
+            style="@style/FilledEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:error="Error at outline"
+            app:errorEnabled="true" />
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/filled_texterror"
+            style="@style/FilledEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:editTextError="Error at EditText" />
+
+        <de.danihoo94.www.materialcomponents.MaterialEditText
+            android:id="@+id/filled_textwatcher"
+            style="@style/FilledEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="3" />
+
+    </LinearLayout>
+
+
+</ScrollView>

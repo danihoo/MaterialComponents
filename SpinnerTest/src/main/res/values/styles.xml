@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="OutlinedEditTextTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
+
+    <style name="FilledEditTextTheme" parent="Widget.MaterialComponents.TextInputLayout.FilledBox"></style>
+
+</resources>

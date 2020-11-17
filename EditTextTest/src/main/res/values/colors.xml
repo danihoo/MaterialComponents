@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="theme_primary">#1a237e</color>
+    <color name="theme_primary_light">#534bae</color>
+    <color name="theme_primary_dark">#000051</color>
+    <color name="theme_accent">#ec407a</color>
+    <color name="theme_accent_light">#ff77a9</color>
+    <color name="theme_accent_dark">#b4004e</color>
+    <color name="text_light_not_focused">#7777aa</color>
+    <color name="text_light_disabled">#CCCCCC</color>
+    <color name="text_dark">#000051</color>
+    <color name="text_dark_accent">#666695</color>
+    <color name="text_dark_negative">#FF0066</color>
+
+</resources>

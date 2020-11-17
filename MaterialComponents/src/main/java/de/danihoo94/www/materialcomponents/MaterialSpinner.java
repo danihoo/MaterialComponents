@@ -19,7 +19,7 @@ import androidx.annotation.RequiresApi;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class MaterialEditText extends TextInputLayout {
+public class MaterialSpinner extends TextInputLayout {
     private TextInputEditText editText;
 
     /**
@@ -27,7 +27,7 @@ public class MaterialEditText extends TextInputLayout {
      *
      * @param context context
      */
-    public MaterialEditText(@NonNull Context context) {
+    public MaterialSpinner(@NonNull Context context) {
         super(context);
         setupView(null, 0);
     }
@@ -38,7 +38,7 @@ public class MaterialEditText extends TextInputLayout {
      * @param context context
      * @param attrs   attribute set
      */
-    public MaterialEditText(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public MaterialSpinner(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setupView(attrs, 0);
     }
@@ -50,7 +50,7 @@ public class MaterialEditText extends TextInputLayout {
      * @param attrs        attribute set
      * @param defStyleAttr style
      */
-    public MaterialEditText(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MaterialSpinner(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setupView(attrs, defStyleAttr);
     }
@@ -116,7 +116,7 @@ public class MaterialEditText extends TextInputLayout {
                 String editTextError = a.getString(R.styleable.MaterialEditTextView_editTextError);
                 editText.setError(editTextError);
 
-                ColorStateList textColor = a.getColorStateList(R.styleable.MaterialEditTextView_android_textColor);
+                ColorStateList textColor = a.getColorStateList(R.styleable.MaterialEditTextView_textColor);
                 if (textColor != null) {
                     editText.setTextColor(textColor);
                 } else {
@@ -128,12 +128,12 @@ public class MaterialEditText extends TextInputLayout {
                     editText.setHintTextColor(hintColor);
                 }
 
-                String digits = a.getString(R.styleable.MaterialEditTextView_android_digits);
+                String digits = a.getString(R.styleable.MaterialEditTextView_digits);
                 if (digits != null) {
                     editText.setKeyListener(DigitsKeyListener.getInstance(digits));
                 }
 
-                int inputType = a.getInt(R.styleable.MaterialEditTextView_android_inputType, 0);
+                int inputType = a.getInt(R.styleable.MaterialEditTextView_inputType, 0);
                 editText.setInputType(inputType);
             } finally {
                 a.recycle();

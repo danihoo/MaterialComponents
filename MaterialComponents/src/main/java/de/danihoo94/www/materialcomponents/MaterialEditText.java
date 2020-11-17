@@ -107,33 +107,36 @@ public class MaterialEditText extends TextInputLayout {
         editText = findViewById(R.id.view_material_edit_text);
 
         if (attrs != null) {
-            TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.MaterialEditTextView, defStyleAttr, 0);
+            TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.MaterialEditText, defStyleAttr, 0);
 
             try {
-                String editTextHint = a.getString(R.styleable.MaterialEditTextView_editTextHint);
+                String editTextHint = a.getString(R.styleable.MaterialEditText_editTextHint);
                 editText.setHint(editTextHint);
 
-                String editTextError = a.getString(R.styleable.MaterialEditTextView_editTextError);
+                String error = a.getString(R.styleable.MaterialEditText_error);
+                setError(error);
+
+                String editTextError = a.getString(R.styleable.MaterialEditText_editTextError);
                 editText.setError(editTextError);
 
-                ColorStateList textColor = a.getColorStateList(R.styleable.MaterialEditTextView_android_textColor);
+                ColorStateList textColor = a.getColorStateList(R.styleable.MaterialEditText_android_textColor);
                 if (textColor != null) {
                     editText.setTextColor(textColor);
                 } else {
-                    editText.setTextColor(Color.parseColor("#000"));
+                    editText.setTextColor(Color.parseColor("#000000"));
                 }
 
-                ColorStateList hintColor = a.getColorStateList(R.styleable.MaterialEditTextView_hintTextColor);
+                ColorStateList hintColor = a.getColorStateList(R.styleable.MaterialEditText_hintTextColor);
                 if (hintColor != null) {
                     editText.setHintTextColor(hintColor);
                 }
 
-                String digits = a.getString(R.styleable.MaterialEditTextView_android_digits);
+                String digits = a.getString(R.styleable.MaterialEditText_android_digits);
                 if (digits != null) {
                     editText.setKeyListener(DigitsKeyListener.getInstance(digits));
                 }
 
-                int inputType = a.getInt(R.styleable.MaterialEditTextView_android_inputType, 0);
+                int inputType = a.getInt(R.styleable.MaterialEditText_android_inputType, 0);
                 editText.setInputType(inputType);
             } finally {
                 a.recycle();
@@ -157,15 +160,6 @@ public class MaterialEditText extends TextInputLayout {
      */
     public void setInputType(int type) {
         editText.setInputType(type);
-    }
-
-    /**
-     * Set a hint message at the TextInputEditText
-     *
-     * @param hintText hint text to be assigned, null to clear
-     */
-    public void setEditTextHint(@Nullable CharSequence hintText) {
-        editText.setHint(hintText);
     }
 
     /**
@@ -220,6 +214,15 @@ public class MaterialEditText extends TextInputLayout {
      */
     public CharSequence getEditTextHint() {
         return editText.getHint();
+    }
+
+    /**
+     * Set a hint message at the TextInputEditText
+     *
+     * @param hintText hint text to be assigned, null to clear
+     */
+    public void setEditTextHint(@Nullable CharSequence hintText) {
+        editText.setHint(hintText);
     }
 
     /**

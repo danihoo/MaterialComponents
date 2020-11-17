@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MaterialEditTextView">
+    <declare-styleable name="MaterialEditText">
         <attr name="android:textColor" format="reference|color" />
         <attr name="android:digits" format="string" />
         <attr name="android:inputType">
@@ -38,8 +38,13 @@
             <flag name="date" value="0x00000014" />
             <flag name="time" value="0x00000024" />
         </attr>
+        <attr name="error" format="string" />
         <attr name="editTextHint" format="string" />
         <attr name="editTextError" format="string" />
         <attr name="hintTextColor" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialSpinner">
+
     </declare-styleable>
 </resources>

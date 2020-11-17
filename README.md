@@ -46,7 +46,7 @@ Add the following dependency in your app's build.gradle file:
 ```
 dependencies {
     ...
-    implementation 'com.github.danihoo:MaterialComponents:[version]'
+    implementation 'com.github.danihoo:MaterialComponents:MaterialComponents:[version]'
     ...
 }
 ```
@@ -54,6 +54,12 @@ dependencies {
 ## Documentation
 
 ### MaterialEditText (WIP)
+
+#### Example
+
+#### Add in XML
+
+#### Theming
 
 
 ### MaterialSpinner (WIP)

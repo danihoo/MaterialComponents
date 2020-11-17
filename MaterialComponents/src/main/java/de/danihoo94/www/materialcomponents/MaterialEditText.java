@@ -6,6 +6,8 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
+import android.text.method.KeyListener;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -118,10 +120,34 @@ public class MaterialEditText extends TextInputLayout {
 
                 ColorStateList hintColor = a.getColorStateList(R.styleable.MaterialEditTextView_hintTextColor);
                 editText.setHintTextColor(hintColor);
+
+                String digits = a.getString(R.styleable.MaterialEditTextView_digits);
+                editText.setKeyListener(DigitsKeyListener.getInstance(digits));
+
+                int inputType = a.getInt(R.styleable.MaterialEditTextView_inputType, 0);
+                editText.setInputType(inputType);
             } finally {
                 a.recycle();
             }
         }
+    }
+
+    /**
+     * Set key listener in TextInputEditText
+     *
+     * @param input KeyListener object to set
+     */
+    public void setKeyListener(KeyListener input) {
+        editText.setKeyListener(input);
+    }
+
+    /**
+     * Set key listener in TextInputEditText
+     *
+     * @param type input type as defined in android.text.InputType
+     */
+    public void setInputType(int type) {
+        editText.setInputType(type);
     }
 
     /**

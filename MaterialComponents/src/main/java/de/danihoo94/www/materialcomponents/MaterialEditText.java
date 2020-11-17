@@ -212,4 +212,31 @@ public class MaterialEditText extends TextInputLayout {
     public CharSequence getEditTextHint() {
         return editText.getHint();
     }
+
+    /**
+     * Set position of cursor in text field
+     *
+     * @param index index to set cursor to
+     */
+    public void setSelection(int index) {
+        editText.setSelection(index);
+    }
+
+    /**
+     * Get start index of selection in text field
+     *
+     * @return start index
+     */
+    public int getSelectionStart() {
+        return editText.getSelectionStart();
+    }
+
+    /**
+     * Get end index of selection in text field
+     *
+     * @return end index
+     */
+    public int getSelectionEnd() {
+        return editText.getSelectionEnd();
+    }
 }

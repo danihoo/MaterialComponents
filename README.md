@@ -1,9 +1,7 @@
-# Material Components Library by Daniel Hoogen
-
-
+# Material Components Library
 
 ## Table of Contents
-1. [Overview](#setup)
+1. [Overview](#overview)
 1. [Quick Start](#quick-start)
 1. [Documentation](#documentation)
     1. [MaterialEditText](#materialedittext-wip)
@@ -14,23 +12,27 @@
 1. [About](#about)
 
 
-## Quick Start
+## Overview
 
 This lightweight library offers you easy access to material components which are not implemented in the standard Android Libraries.
 
-As a first step the following components will be available (work in progress)
+If you are missing some functionality, please submit an issue to give me the chance to improve this library.
+
+
+As a first step the following components will be available
 
 * <b>MaterialEditText</b> - Outlined and filled Material text fields
-* <b>MaterialSpinner</b> - Use a spinner and material design similar to the standard spinner in android
-* <b>FloatingActionButton</b> - Material fabs with custom colours and design 
-* <b>FullscreenDialog</b> - A customizable Fullscreen Dialog with toolbar and animations
+* (coming soon) <b>MaterialSpinner</b> - Use a spinner and material design similar to the standard spinner in android
+* (coming soon) <b>FloatingActionButton</b> - Material fabs with custom colours and design 
+* (coming soon) <b>FullscreenDialog</b> - A customizable Fullscreen Dialog with toolbar and animations
 
 
-## Setup
+## Quick Start
 
 Add the following repository in your project's build.gradle file:
 
-```allprojects {
+```
+allprojects {
     repositories {
         ...
         <b>maven { url 'https://jitpack.io' }</b>
@@ -39,10 +41,10 @@ Add the following repository in your project's build.gradle file:
 }
 ```
 
-
 Add the following dependency in your app's build.gradle file:
 
-```dependencies {
+```
+dependencies {
     ...
     <b>implementation 'com.github.danihoo:MaterialComponents:[version]'</b>
     ...

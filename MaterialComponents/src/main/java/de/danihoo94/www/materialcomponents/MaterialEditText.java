@@ -16,7 +16,7 @@ import androidx.annotation.RequiresApi;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class MaterialEditTextView extends TextInputLayout {
+public class MaterialEditText extends TextInputLayout {
     private TextInputEditText editText;
 
     /**
@@ -24,7 +24,7 @@ public class MaterialEditTextView extends TextInputLayout {
      *
      * @param context context
      */
-    public MaterialEditTextView(@NonNull Context context) {
+    public MaterialEditText(@NonNull Context context) {
         super(context);
         setupView(null, 0);
     }
@@ -35,7 +35,7 @@ public class MaterialEditTextView extends TextInputLayout {
      * @param context context
      * @param attrs   attribute set
      */
-    public MaterialEditTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public MaterialEditText(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setupView(attrs, 0);
     }
@@ -47,7 +47,7 @@ public class MaterialEditTextView extends TextInputLayout {
      * @param attrs        attribute set
      * @param defStyleAttr style
      */
-    public MaterialEditTextView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MaterialEditText(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setupView(attrs, defStyleAttr);
     }
@@ -125,26 +125,6 @@ public class MaterialEditTextView extends TextInputLayout {
     }
 
     /**
-     * Set an error message at the TextInputLayout
-     *
-     * @param hintText hint text to be assigned, null to clear
-     */
-    @Override
-    public void setHint(@Nullable CharSequence hintText) {
-        super.setError(hintText);
-    }
-
-    /**
-     * Set an error message at the TextInputLayout
-     *
-     * @param errorText error text to be assigned, null to clear
-     */
-    @Override
-    public void setError(@Nullable CharSequence errorText) {
-        super.setError(errorText);
-    }
-
-    /**
      * Set a hint message at the TextInputEditText
      *
      * @param hintText hint text to be assigned, null to clear
@@ -196,5 +176,14 @@ public class MaterialEditTextView extends TextInputLayout {
      */
     public void setText(int resId) {
         editText.setText(resId);
+    }
+
+    /**
+     * Get current hint text from TextInputEditText
+     *
+     * @return hint as text
+     */
+    public CharSequence getEditTextHint() {
+        return editText.getHint();
     }
 }

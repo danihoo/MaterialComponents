@@ -22,6 +22,30 @@ As a first step the following components will be available
 # FullscreenDialog (WIP)
 
 
+# Use this library
+
+Add the following repository in your project's build.gradle file:
+
+---
+allprojects {
+    repositories {
+        ...
+        <b>maven { url 'https://jitpack.io' }</b>
+        ...
+    }
+}
+---
+
+Add the following dependency in your app's build.gradle file
+
+---
+dependencies {
+    ...
+    implementation 'com.github.danihoo:MaterialComponents:[version]'
+    ...
+}
+---
+
 # About
 
 This library uses the following works of other authors.

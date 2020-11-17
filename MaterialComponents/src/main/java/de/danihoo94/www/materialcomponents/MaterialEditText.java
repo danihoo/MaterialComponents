@@ -126,7 +126,9 @@ public class MaterialEditText extends TextInputLayout {
                 }
 
                 String digits = a.getString(R.styleable.MaterialEditTextView_digits);
-                editText.setKeyListener(DigitsKeyListener.getInstance(digits));
+                if (digits != null) {
+                    editText.setKeyListener(DigitsKeyListener.getInstance(digits));
+                }
 
                 int inputType = a.getInt(R.styleable.MaterialEditTextView_inputType, 0);
                 editText.setInputType(inputType);
@@ -141,7 +143,7 @@ public class MaterialEditText extends TextInputLayout {
      *
      * @param input KeyListener object to set
      */
-    public void setKeyListener(KeyListener input) {
+    public void setKeyListener( KeyListener input) {
         editText.setKeyListener(input);
     }
 

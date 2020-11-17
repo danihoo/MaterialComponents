@@ -3,6 +3,7 @@ package de.danihoo94.www.materialcomponents;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -118,6 +119,8 @@ public class MaterialEditText extends TextInputLayout {
                 ColorStateList textColor = a.getColorStateList(R.styleable.MaterialEditTextView_textColor);
                 if (textColor != null) {
                     editText.setTextColor(textColor);
+                } else {
+                    editText.setTextColor(Color.parseColor("#000"));
                 }
 
                 ColorStateList hintColor = a.getColorStateList(R.styleable.MaterialEditTextView_hintTextColor);
@@ -143,7 +146,7 @@ public class MaterialEditText extends TextInputLayout {
      *
      * @param input KeyListener object to set
      */
-    public void setKeyListener( KeyListener input) {
+    public void setKeyListener(KeyListener input) {
         editText.setKeyListener(input);
     }
 

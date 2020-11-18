@@ -45,6 +45,8 @@
     </declare-styleable>
 
     <declare-styleable name="MaterialSpinner">
-
+        <attr name="filled" format="boolean" />
+        <attr name="android:textColor" format="reference|color" />
+        <attr name="android:backgroundTint" format="reference|color" />
     </declare-styleable>
 </resources>

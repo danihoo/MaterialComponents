@@ -1,12 +1,12 @@
 package de.danihoo94.www.spinnertest;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import de.danihoo94.www.materialcomponents.MaterialSpinner;
+import de.danihoo94.www.materialcomponents.MaterialSpinnerAdapter;
+import de.danihoo94.www.materialcomponents.MaterialSpinnerFilled;
+import de.danihoo94.www.materialcomponents.MaterialSpinnerOutlined;
 
 public class TestActivity extends AppCompatActivity {
     @Override
@@ -14,19 +14,31 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        MaterialSpinner spinnerOutlined = findViewById(R.id.outlined);
-        TestAdapter adapter = new TestAdapter(this);
-        adapter.add(new Item("Test1"));
-        adapter.add(new Item("Test2"));
-        spinnerOutlined.setAdapter(adapter);
+        MaterialSpinnerOutlined spinnerOutlined = findViewById(R.id.outlined);
+        MaterialSpinnerAdapter<Item> adapter1 = new MaterialSpinnerAdapter<>(this);
+        adapter1.add(new Item("Test1"));
+        adapter1.add(new Item("Test2"));
+        spinnerOutlined.setAdapter(adapter1);
 
-        MaterialSpinner spinnerFilled = findViewById(R.id.filled);
-        spinnerFilled.setAdapter(adapter);
+        MaterialSpinnerFilled spinnerFilled = findViewById(R.id.filled);
+        MaterialSpinnerAdapter<Item> adapter2 = new MaterialSpinnerAdapter<>(this);
+        adapter2.add(new Item("No error"));
+        adapter2.add(new Item("Error"));
+        spinnerFilled.setAdapter(adapter2);
 
-        spinnerOutlined.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(adapter.getSelectedObject());
+        MaterialSpinnerFilled spinnerFilled2 = findViewById(R.id.filled2);
+        MaterialSpinnerAdapter<Item> adapter3 = new MaterialSpinnerAdapter<>(this);
+        adapter3.add(new Item("Test3"));
+        adapter3.add(new Item("Test4"));
+        spinnerFilled2.setAdapter(adapter3);
+
+        spinnerOutlined.setOnItemClickListener((parent, view, position, id) -> System.out.println(spinnerOutlined.getSelectedObject()));
+        spinnerFilled.setOnItemClickListener((parent, view, position, id) -> {
+            System.out.println(spinnerFilled.getSelectedObject());
+            if (spinnerFilled.getSelectedObject().toString().equals("Error")) {
+                spinnerFilled.setError("Error!");
+            } else {
+                spinnerFilled.setError(null);
             }
         });
     }

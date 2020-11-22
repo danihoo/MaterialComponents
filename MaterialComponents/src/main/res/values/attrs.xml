@@ -45,8 +45,26 @@
     </declare-styleable>
 
     <declare-styleable name="MaterialSpinner">
-        <attr name="filled" format="boolean" />
-        <attr name="android:textColor" format="reference|color" />
-        <attr name="android:backgroundTint" format="reference|color" />
+        <attr name="android:hint" />
+        <attr name="error" />
+        <attr name="errorEnabled" />
+        <attr name="helperText" />
+        <attr name="helperTextEnabled" />
+
+        <attr name="android:textColor" />
+        <attr name="android:backgroundTint" />
+        <attr name="android:textColorHint" />
+        <attr name="boxStrokeColor" />
+        <attr name="android:colorControlNormal" />
+        <attr name="counterTextColor" />
+        <attr name="helperTextTextColor" />
+        <attr name="boxStrokeErrorColor" />
+        <attr name="errorTextColor" />
+        <attr name="errorIconColor" format="reference|color" />
+        <attr name="counterOverflowTextColor" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialSpinnerEditText">
+
     </declare-styleable>
 </resources>

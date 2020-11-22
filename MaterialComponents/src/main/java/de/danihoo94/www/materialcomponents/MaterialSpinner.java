@@ -7,8 +7,13 @@ import android.os.Build;
 import android.text.Editable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,15 +21,19 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class MaterialSpinner extends TextInputLayout {
-    private static final int ELLIPSIZE_END = 3;
-    private AutoCompleteTextView spinner;
+abstract class MaterialSpinner extends RelativeLayout {
+    private static final int ANIMATION_DURATION_FADE = 200;
+    private TextInputLayout layout;
+    private MaterialAutoCompleteTextView spinner;
+    private ImageView dropIcon;
+    @SuppressWarnings("rawtypes")
     private MaterialSpinnerAdapter adapter;
 
     /**
-     * super class constructor with custom layout inflation
+     * super class constructor
      *
      * @param context context
      */
@@ -104,8 +113,11 @@ public class MaterialSpinner extends TextInputLayout {
      */
     private void setupView(@Nullable AttributeSet attrs, int defStyleAttr) {
 
-        inflate(getContext(), R.layout.view_material_spinner, this);
+        inflate(getContext(), getLayout(), this);
         spinner = findViewById(R.id.view_material_spinner_autocomplete);
+        layout = findViewById(R.id.view_material_spinner_layout);
+        dropIcon = findViewById(R.id.view_material_spinner_icon);
+        View anchor = findViewById(R.id.view_material_dropdown_anchor);
 
         spinner.setOnClickListener(new OnClickListener() {
             @Override
@@ -117,15 +129,45 @@ public class MaterialSpinner extends TextInputLayout {
         spinner.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                showDropDown();
+                if (hasFocus) {
+                    showDropDown();
+                } else {
+                    dismissDropDown();
+                }
             }
         });
 
+        spinner.setOnDismissListener(new AutoCompleteTextView.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                animateDropDown(false);
+            }
+        });
+
+        // setup anchor with unique view
+        int id = View.generateViewId();
+        anchor.setId(id);
+        spinner.setDropDownAnchor(id);
 
         if (attrs != null) {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.MaterialSpinner, defStyleAttr, 0);
 
             try {
+                String hint = a.getString(R.styleable.MaterialSpinner_android_hint);
+                setHint(hint);
+
+                String error = a.getString(R.styleable.MaterialSpinner_error);
+                setError(error);
+
+                boolean errorEnabled = a.getBoolean(R.styleable.MaterialSpinner_errorEnabled, false);
+                setErrorEnabled(errorEnabled);
+
+                String helperText = a.getString(R.styleable.MaterialSpinner_helperText);
+                setHelperText(helperText);
+
+                boolean helperTextEnabled = a.getBoolean(R.styleable.MaterialSpinner_helperTextEnabled, false);
+                setHelperTextEnabled(helperTextEnabled);
+
                 ColorStateList textColor = a.getColorStateList(R.styleable.MaterialSpinner_android_textColor);
                 if (textColor != null) {
                     spinner.setTextColor(textColor);
@@ -134,14 +176,57 @@ public class MaterialSpinner extends TextInputLayout {
                 }
 
                 ColorStateList backgroundTint = a.getColorStateList(R.styleable.MaterialSpinner_android_backgroundTint);
-                if (textColor != null) {
+                if (backgroundTint != null) {
                     setBackgroundTintList(backgroundTint);
                 } else {
-                    setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.white));
+                    setBackgroundTintList(ContextCompat.getColorStateList(getContext(), android.R.color.transparent));
                 }
 
-                boolean filled = a.getBoolean(R.styleable.MaterialSpinner_filled, false);
-                setFilled(filled);
+                ColorStateList textColorHint = a.getColorStateList(R.styleable.MaterialSpinner_android_textColorHint);
+                if (textColorHint != null) {
+                    setHintTextColor(textColorHint);
+                }
+
+                ColorStateList boxStrokeColor = a.getColorStateList(R.styleable.MaterialSpinner_boxStrokeColor);
+                if (boxStrokeColor != null) {
+                    setBoxStrokeColor(boxStrokeColor);
+                }
+
+                ColorStateList colorControlNormal = a.getColorStateList(R.styleable.MaterialSpinner_android_colorControlNormal);
+                if (colorControlNormal != null) {
+                    setColorControlNormal(colorControlNormal);
+                }
+
+                ColorStateList counterTextColor = a.getColorStateList(R.styleable.MaterialSpinner_counterTextColor);
+                if (counterTextColor != null) {
+                    setCounterTextColor(counterTextColor);
+                }
+
+                ColorStateList helperTextTextColor = a.getColorStateList(R.styleable.MaterialSpinner_helperTextTextColor);
+                if (helperTextTextColor != null) {
+                    setHelperTextColor(helperTextTextColor);
+                }
+
+                ColorStateList boxStrokeErrorColor = a.getColorStateList(R.styleable.MaterialSpinner_boxStrokeErrorColor);
+                if (boxStrokeErrorColor != null) {
+                    setBoxStrokeErrorColor(boxStrokeErrorColor);
+                }
+
+                ColorStateList errorTextColor = a.getColorStateList(R.styleable.MaterialSpinner_errorTextColor);
+                if (errorTextColor != null) {
+                    setErrorTextColor(errorTextColor);
+                }
+
+                ColorStateList errorIconColor = a.getColorStateList(R.styleable.MaterialSpinner_errorIconColor);
+                if (errorIconColor != null) {
+                    setErrorIconColor(errorIconColor);
+                }
+
+                ColorStateList counterOverflowTextColor = a.getColorStateList(R.styleable.MaterialSpinner_counterOverflowTextColor);
+                if (counterOverflowTextColor != null) {
+                    setCounterOverflowTextColor(counterOverflowTextColor);
+                }
+
             } finally {
                 a.recycle();
             }
@@ -149,41 +234,138 @@ public class MaterialSpinner extends TextInputLayout {
     }
 
     /**
-     * Sets if the spinner currently uses the filled theme (and not the outlined one)
+     * Animate the drop down icon rotation
      *
-     * @param filled true, or, if outlined theme, false
+     * @param openAfterAnimation true if animate to open state, otherwise false
      */
-    public void setFilled(boolean filled) {
-        float paddingTop, paddingBottom;
+    private void animateDropDown(boolean openAfterAnimation) {
+        if (getError() == null) {
+            float rotationStart = openAfterAnimation ? 0f : 180f;
+            float rotationEnd = openAfterAnimation ? 180f : 0f;
 
-        if (filled) {
-            paddingTop = getResources().getDimension(R.dimen.material_spinner_padding_top_filled);
-            paddingBottom = getResources().getDimension(R.dimen.material_spinner_padding_bottom_filled);
-        } else {
-            paddingTop = getResources().getDimension(R.dimen.material_spinner_padding_top_outlined);
-            paddingBottom = getResources().getDimension(R.dimen.material_spinner_padding_bottom_outlined);
+            RotateAnimation rotate = new RotateAnimation(rotationStart, rotationEnd,
+                    Animation.RELATIVE_TO_SELF, 0.5f,
+                    Animation.RELATIVE_TO_SELF, 0.5f);
+            rotate.setInterpolator(new AccelerateDecelerateInterpolator());
+            rotate.setDuration(2 * ANIMATION_DURATION_FADE);
+            rotate.setFillAfter(true);
+            dropIcon.startAnimation(rotate);
         }
-
-        spinner.setPadding(spinner.getPaddingLeft(), (int) paddingTop, spinner.getPaddingRight(), (int) paddingBottom);
     }
 
     /**
-     * Set the maximum line count of the displayed element
+     * Returns the layout id of the layout to use
      *
-     * @param lines count of lines
+     * @return layout id
      */
-    public void setMaxLines(int lines) {
-        spinner.setMaxLines(lines);
+    protected abstract int getLayout();
+
+    /**
+     * (De-)activate the error text below the TextInputLayout
+     *
+     * @param enabled true if enabled
+     */
+    public void setErrorEnabled(boolean enabled) {
+        layout.setErrorEnabled(enabled);
     }
 
     /**
-     * Set the background color of the AutoCompleteTextView object
+     * (De-)activate the helper text below the TextInputLayout
      *
-     * @param color color as int
+     * @param enabled true if enabled
      */
-    @Override
-    public void setBackgroundColor(int color) {
-        spinner.setBackgroundColor(color);
+    public void setHelperTextEnabled(boolean enabled) {
+        layout.setHelperTextEnabled(enabled);
+    }
+
+    /**
+     * Assigns the hint text color of the layout hint
+     *
+     * @param color colors to assign
+     */
+    public void setHintTextColor(ColorStateList color) {
+        layout.setDefaultHintTextColor(color);
+    }
+
+    /**
+     * Returns the currently selected object of the adapter
+     *
+     * @return object of type t or null, if none is selected
+     */
+    public Object getSelectedObject() {
+        return adapter.getSelectedObject();
+    }
+
+    /**
+     * Assigns the box stroke color
+     *
+     * @param color colors to assign
+     */
+    public void setBoxStrokeColor(ColorStateList color) {
+        layout.setBoxStrokeColorStateList(color);
+    }
+
+    /**
+     * Assigns the control color
+     *
+     * @param color colors to assign
+     */
+    public void setColorControlNormal(ColorStateList color) {
+        dropIcon.setImageTintList(color);
+    }
+
+    /**
+     * Assigns the counter text color
+     *
+     * @param color colors to assign
+     */
+    public void setCounterTextColor(ColorStateList color) {
+        layout.setCounterTextColor(color);
+    }
+
+    /**
+     * Assigns the helper text color
+     *
+     * @param color colors to assign
+     */
+    public void setHelperTextColor(ColorStateList color) {
+        layout.setHelperTextColor(color);
+    }
+
+    /**
+     * Assigns the box stroke color on error
+     *
+     * @param color colors to assign
+     */
+    public void setBoxStrokeErrorColor(ColorStateList color) {
+        layout.setBoxStrokeErrorColor(color);
+    }
+
+    /**
+     * Assigns the error text color
+     *
+     * @param color colors to assign
+     */
+    public void setErrorTextColor(ColorStateList color) {
+        layout.setErrorTextColor(color);
+    }
+
+    /**
+     * Assigns the error text color
+     *
+     * @param color colors to assign
+     */
+    public void setErrorIconColor(ColorStateList color) {
+        layout.setErrorIconTintList(color);
+    }
+
+    /**
+     * Assigns the counter overflow text color
+     *
+     * @param color colors to assign
+     */
+    public void setCounterOverflowTextColor(ColorStateList color) {
+        layout.setCounterOverflowTextColor(color);
     }
 
     /**
@@ -200,16 +382,57 @@ public class MaterialSpinner extends TextInputLayout {
      * Show dropdown menu
      */
     public void showDropDown() {
+        animateDropDown(true);
         spinner.showDropDown();
     }
 
     /**
-     * Set an error message at the TextInputEditText
+     * Dismiss dropdown menu
+     */
+    public void dismissDropDown() {
+        spinner.dismissDropDown();
+    }
+
+    /**
+     * Return if popup is currently showing
+     *
+     * @return is dropdown showing
+     */
+    public boolean isDropDownShowing() {
+        return spinner.isPopupShowing();
+    }
+
+    /**
+     * Get the currently set error message
+     *
+     * @return error char sequence
+     */
+    public CharSequence getError() {
+        return layout.getError();
+    }
+
+    /**
+     * Set an error message at the TextInputLayout
      *
      * @param errorText error text to be assigned, null to clear
      */
-    public void setEditTextError(@Nullable CharSequence errorText) {
-        spinner.setError(errorText);
+    public void setError(@Nullable CharSequence errorText) {
+        if (errorText == null) {
+            dropIcon.setVisibility(View.VISIBLE);
+        } else {
+            dropIcon.clearAnimation(); // to prevent a running animation making the icon visible
+            dropIcon.setVisibility(View.GONE);
+        }
+        layout.setError(errorText);
+    }
+
+    /**
+     * Set a helper text at the TextInputLayout
+     *
+     * @param errorText error text to be assigned, null to clear
+     */
+    public void setHelperText(@Nullable CharSequence errorText) {
+        layout.setHelperText(errorText);
     }
 
     /**
@@ -219,15 +442,6 @@ public class MaterialSpinner extends TextInputLayout {
      */
     public Editable getText() {
         return spinner.getText();
-    }
-
-    /**
-     * Assign a text to the TextInputEditText
-     *
-     * @param text text to be assigned
-     */
-    public void setText(CharSequence text) {
-        spinner.setText(text);
     }
 
     /**
@@ -244,17 +458,26 @@ public class MaterialSpinner extends TextInputLayout {
      *
      * @return hint as text
      */
-    public CharSequence getEditTextHint() {
+    public CharSequence getSpinnerHint() {
         return spinner.getHint();
     }
 
     /**
-     * Set a hint message at the TextInputEditText
+     * Get current hint text from TextInputLayout
+     *
+     * @return hint as text
+     */
+    public CharSequence getHint() {
+        return layout.getHint();
+    }
+
+    /**
+     * Set a hint message at the TextInputLayout
      *
      * @param hintText hint text to be assigned, null to clear
      */
-    public void setEditTextHint(@Nullable CharSequence hintText) {
-        spinner.setHint(hintText);
+    public void setHint(@Nullable CharSequence hintText) {
+        layout.setHint(hintText);
     }
 
     /**
@@ -262,6 +485,7 @@ public class MaterialSpinner extends TextInputLayout {
      *
      * @param adapter The adapter to set
      */
+    @SuppressWarnings("rawtypes")
     public void setAdapter(MaterialSpinnerAdapter adapter) {
         this.adapter = adapter;
         spinner.setAdapter(adapter);

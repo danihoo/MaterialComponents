@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="spinner_item_text_color">#212121</color>
+    <color name="transparent">#00000000</color>
+    <color name="list_item_background_standard">#ffffffff</color>
+    <color name="list_item_background_selected">#0A333333</color>
+</resources>

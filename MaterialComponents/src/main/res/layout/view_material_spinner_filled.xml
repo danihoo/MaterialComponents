@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/view_material_spinner_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/view_material_spinner_autocomplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dropDownAnchor="@id/view_material_dropdown_anchor"
+            android:inputType="none"
+            android:paddingStart="@dimen/spinner_padding_horizontal"
+            android:paddingTop="@dimen/spinner_padding_top_filled"
+            android:paddingEnd="@dimen/spinner_padding_horizontal"
+            android:paddingBottom="@dimen/spinner_padding_bottom_filled"
+            android:textSize="@dimen/spinner_shown_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- id of anchor will be set unique in MaterialSpinner to show the popup at the right position -->
+    <View
+        android:id="@+id/view_material_dropdown_anchor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/spinner_dropdown_anchor_filled"
+        android:clickable="false"
+        android:focusable="false" />
+
+    <ImageView
+        android:id="@+id/view_material_spinner_icon"
+        android:layout_width="@dimen/spinner_drop_icon_size"
+        android:layout_height="@dimen/spinner_drop_icon_size"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/spinner_drop_icon_margin_horizontal"
+        android:layout_marginTop="@dimen/spinner_drop_icon_margin_top_filled"
+        android:layout_marginEnd="@dimen/spinner_drop_icon_margin_horizontal"
+        android:contentDescription="@string/expand"
+        android:src="@drawable/baseline_arrow_drop_down_24" />
+
+</merge>

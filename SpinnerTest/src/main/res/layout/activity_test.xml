@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f8f8f8"
+    android:background="#ffffff"
     android:padding="12dp"
     tools:context=".TestActivity">
 
@@ -13,25 +13,38 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <de.danihoo94.www.materialcomponents.MaterialSpinner
+        <de.danihoo94.www.materialcomponents.MaterialSpinnerOutlined
             android:id="@+id/outlined"
-            style="@style/OutlinedTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:hint="Test"
-            android:paddingBottom="24dp" />
-
-        <de.danihoo94.www.materialcomponents.MaterialSpinner
-            android:id="@+id/filled"
-            style="@style/FilledTheme"
+            style="@style/SpinnerTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#dddddd"
             android:hint="Test"
-            android:textColor="#000000"
-            app:filled="true" />
+            android:paddingBottom="24dp"
+            app:errorEnabled="true"
+            tools:ignore="HardcodedText" />
 
+        <de.danihoo94.www.materialcomponents.MaterialSpinnerFilled
+            android:id="@+id/filled"
+            style="@style/SpinnerTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#dddddd"
+            android:hint="Test"
+            android:paddingBottom="24dp"
+            app:errorEnabled="true"
+            app:helperText="I can help you"
+            tools:ignore="HardcodedText" />
+
+        <de.danihoo94.www.materialcomponents.MaterialSpinnerFilled
+            android:id="@+id/filled2"
+            style="@style/SpinnerTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#dddddd"
+            android:hint="Test"
+            android:paddingBottom="24dp"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 </ScrollView>

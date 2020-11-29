@@ -23,13 +23,14 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 
-abstract class MaterialSpinner extends RelativeLayout {
+public abstract class MaterialSpinner extends RelativeLayout {
     private static final int ANIMATION_DURATION_FADE = 200;
     private TextInputLayout layout;
     private MaterialAutoCompleteTextView spinner;
     private ImageView dropIcon;
     @SuppressWarnings("rawtypes")
     private MaterialSpinnerAdapter adapter;
+    private OnSelectionChangedListener selectionListener;
 
     /**
      * super class constructor
@@ -415,30 +416,12 @@ abstract class MaterialSpinner extends RelativeLayout {
     }
 
     /**
-     * Get the text of the TextInputEditText
+     * Get the text of the AutoCompleteTextView
      *
      * @return text
      */
     public Editable getText() {
         return spinner.getText();
-    }
-
-    /**
-     * Assign a text to the TextInputEditText
-     *
-     * @param resId if od the string to be assigned
-     */
-    public void setText(int resId) {
-        spinner.setText(resId);
-    }
-
-    /**
-     * Get current hint text from TextInputEditText
-     *
-     * @return hint as text
-     */
-    public CharSequence getSpinnerHint() {
-        return spinner.getHint();
     }
 
     /**
@@ -472,14 +455,31 @@ abstract class MaterialSpinner extends RelativeLayout {
     }
 
     /**
-     * Sets the listener that will be notified when the user clicks an item in the drop down list
-     * and attaches the adapter to the listener, so that it stays informed about the current
-     * selection
-     *
-     * @param l the item click listener
+     * Returns the currently applied selection listener
      */
-    public void setOnItemClickListener(@Nullable AdapterView.OnItemClickListener l) {
-        spinner.setOnItemClickListener(l);
+    public OnSelectionChangedListener getOnSelectionChangedListener() {
+        return this.selectionListener;
+    }
+
+    /**
+     * Sets the listener that will be notified when the user clicks an item in the drop down list
+     * or changes the selection from code
+     *
+     * @param listener the item click listener
+     */
+    public void setOnSelectionChangedListener(@Nullable OnSelectionChangedListener listener) {
+        this.selectionListener = listener;
+
+        if (selectionListener != null) {
+            spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    selectionListener.onSelectionChanged(MaterialSpinner.this, position);
+                }
+            });
+        } else {
+            spinner.setOnItemClickListener(null);
+        }
         adapter.attachToOnItemClickListener();
     }
 
@@ -489,7 +489,11 @@ abstract class MaterialSpinner extends RelativeLayout {
      * @param index index of the item to select
      */
     public void setSelection(int index) {
-        spinner.setSelection(index);
+        if (adapter.setSelection(index)) {
+            if (selectionListener != null) {
+                selectionListener.onSelectionChanged(this, index);
+            }
+        }
     }
 
     /**
@@ -501,10 +505,17 @@ abstract class MaterialSpinner extends RelativeLayout {
     public boolean setSelection(Object o) {
         for (int i = 0; i < adapter.getCount(); i++) {
             if (adapter.getItem(i) == o) {
-                spinner.setSelection(i);
+                setSelection(i);
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Interface for selection changes
+     */
+    public interface OnSelectionChangedListener {
+        void onSelectionChanged(MaterialSpinner spinner, int index);
     }
 }

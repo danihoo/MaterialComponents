@@ -44,9 +44,15 @@ public class MaterialSpinnerAdapter<T> extends ArrayAdapter<T> {
     @Override
     public void remove(@Nullable T object) {
         // if the removed item is before selection, the selection value needs to be corrected
-        if (object == selectedObject) {
-            selectedObject = null;
-            selectedPosition = -1;
+        for (int i = 0; i < getCount(); i++) {
+            if (getItem(i) == object) {
+                if (getItem(i) == selectedObject) {
+                    selectedObject = null;
+                    selectedPosition = -1;
+                } else if (i < selectedPosition) {
+                    selectedPosition--;
+                }
+            }
         }
 
         super.remove(object);
@@ -96,8 +102,31 @@ public class MaterialSpinnerAdapter<T> extends ArrayAdapter<T> {
      *
      * @return object of type t or null, if none is selected
      */
-    T getSelectedObject() {
+    public T getSelectedObject() {
         return selectedObject;
+    }
+
+    /**
+     * Returns the index of the currently selected object
+     *
+     * @return index of the object or -1 if none is selected
+     */
+    public int getSelectedPosition() {
+        return selectedPosition;
+    }
+
+    /**
+     * Returns the index of the currently selected object
+     *
+     * @return index of the object or -1 if none is selected
+     */
+    boolean setSelection(int index) {
+        if (index >= 0 && index < getCount()) {
+            selectedPosition = index;
+            selectedObject = getItem(index);
+            spinner.setText(selectedObject.toString(), false);
+        }
+        return false;
     }
 
     /**

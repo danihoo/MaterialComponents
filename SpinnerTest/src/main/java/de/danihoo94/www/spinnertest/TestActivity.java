@@ -9,6 +9,7 @@ import de.danihoo94.www.materialcomponents.MaterialSpinnerFilled;
 import de.danihoo94.www.materialcomponents.MaterialSpinnerOutlined;
 
 public class TestActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +30,13 @@ public class TestActivity extends AppCompatActivity {
         MaterialSpinnerFilled spinnerFilled2 = findViewById(R.id.filled2);
         MaterialSpinnerAdapter<Item> adapter3 = new MaterialSpinnerAdapter<>(this);
         adapter3.add(new Item("Test3"));
-        adapter3.add(new Item("Test4"));
+        Item selection = new Item("Selection in code works");
+        adapter3.add(selection);
         spinnerFilled2.setAdapter(adapter3);
+        spinnerFilled2.setSelection(selection);
 
-        spinnerOutlined.setOnItemClickListener((parent, view, position, id) -> System.out.println(spinnerOutlined.getSelectedObject()));
-        spinnerFilled.setOnItemClickListener((parent, view, position, id) -> {
+        spinnerOutlined.setOnSelectionChangedListener((adapter, index) -> System.out.println(adapter.getSelectedObject()));
+        spinnerFilled.setOnSelectionChangedListener((adapter, index) -> {
             System.out.println(spinnerFilled.getSelectedObject());
             if (spinnerFilled.getSelectedObject().toString().equals("Error")) {
                 spinnerFilled.setError("Error!");

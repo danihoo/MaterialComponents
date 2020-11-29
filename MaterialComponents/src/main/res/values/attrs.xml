@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MaterialEditText">
+        <attr name="android:text" format="string" />
         <attr name="android:textColor" format="reference|color" />
         <attr name="android:digits" format="string" />
         <attr name="android:inputType">

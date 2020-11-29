@@ -110,6 +110,9 @@ public class MaterialEditText extends TextInputLayout {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.MaterialEditText, defStyleAttr, 0);
 
             try {
+                String text = a.getString(R.styleable.MaterialEditText_android_text);
+                editText.setText(text);
+
                 String editTextHint = a.getString(R.styleable.MaterialEditText_editTextHint);
                 editText.setHint(editTextHint);
 

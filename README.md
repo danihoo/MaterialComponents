@@ -4,8 +4,8 @@
 1. [Overview](#overview)
 1. [Quick Start](#quick-start)
 1. [Documentation](#documentation)
-    1. [MaterialEditText](#materialedittext-wip)
-    1. [MaterialSpinner](#materialspinner-wip)
+    1. [MaterialEditText](#materialedittext)
+    1. [MaterialSpinner](#materialspinner-exposed-dropdown-menu)
     1. [FloatingActionButton](#floatingactionbutton-wip)
     1. [FullscreenDialog](#fullscreendialog-wip)
 1. [License](#license)
@@ -53,17 +53,75 @@ dependencies {
 
 ## Documentation
 
-### MaterialEditText (WIP)
+### MaterialEditText
 
-#### Example
+The MaterialEditText is designed following the [Google Material Guidelines for text fields](https://material.io/develop/android/components/text-fields). It uses classes from the Material Library for Android.
 
-#### Add in XML
+** Outlined text field **
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/EditTextOutlined.jpg?raw=true)
+
+** Outlined text field (on error) **
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/EditTextOutlinedError.jpg?raw=true)
+
+** Filled text field **
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/EditTextFilled.jpg?raw=true)
+
+** Filled text field (on error) **
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/EditTextFilledError.jpg?raw=true)
+
+
+#### Use in XML
+
+To decide whether to use the Filled or Outlined text field you need to define a theme in your styles.xml (see [Theming](#text-field-theming)). In xml you can go like the following example. For an overview of the attributes you can use see [Attributes](#text-field-attributes).
+
+```
+<de.danihoo94.www.materialcomponents.MaterialEditText
+            style="@style/OutlinedEditTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hint"
+            android:paddingBottom="12dp"
+            android:text="Error"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true" />
+```
+
+#### Text field attributes
+
+The following list contains special attributes you can use. The MaterialEditText class directly inherits from TextInputLayout in the material library. Therefore [all attributes of this class](https://developer.android.com/reference/com/google/android/material/textfield/TextInputLayout#xml-attributes) can be used. Those attributes are not mentioned here.
+
+| Attribute | Description |
+|-----------|-------------|
+|android:text||
+|android:textColor||
+|android:digits||
+|android:inputType||
+|app:error||
+|app:hintTextColor||
+|app:editTextHint||
+|app:editTextError||
+
+        <attr name="android:text" format="string" />
+        <attr name="android:textColor" format="reference|color" />
+        <attr name="android:digits" format="string" />
+        <attr name="android:inputType">
+            <!-- For documentation see {@link android.text.InputType} -->
+        <attr name="error" format="string" />
+        <attr name="editTextHint" format="string" />
+        <attr name="editTextError" format="string" />
+        <attr name="hintTextColor" format="reference|color" />
+
+
+#### Text field theming
+
+
+### MaterialSpinner (Exposed Dropdown Menu)
+
+
+#### Attributes
 
 #### Theming
-
-
-### MaterialSpinner (WIP)
-
 
 ### FloatingActionButton (WIP)
 

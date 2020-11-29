@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,26 +62,6 @@ abstract class MaterialSpinner extends RelativeLayout {
     public MaterialSpinner(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setupView(attrs, defStyleAttr);
-    }
-
-    /**
-     * Assign a text to the TextInputEditText
-     *
-     * @param text text to be assigned
-     * @param type buffer type
-     */
-    public void setText(CharSequence text, TextView.BufferType type) {
-        spinner.setText(text, type);
-    }
-
-    /**
-     * Assign a text to the TextInputEditText
-     *
-     * @param resId if od the string to be assigned
-     * @param type  buffer type
-     */
-    public void setText(int resId, TextView.BufferType type) {
-        spinner.setText(resId, type);
     }
 
     /**
@@ -502,5 +481,30 @@ abstract class MaterialSpinner extends RelativeLayout {
     public void setOnItemClickListener(@Nullable AdapterView.OnItemClickListener l) {
         spinner.setOnItemClickListener(l);
         adapter.attachToOnItemClickListener();
+    }
+
+    /**
+     * Select the item with the specified index
+     *
+     * @param index index of the item to select
+     */
+    public void setSelection(int index) {
+        spinner.setSelection(index);
+    }
+
+    /**
+     * Select the specified object
+     *
+     * @param o object to select
+     * @return true if object was found and selected
+     */
+    public boolean setSelection(Object o) {
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if (adapter.getItem(i) == o) {
+                spinner.setSelection(i);
+                return true;
+            }
+        }
+        return false;
     }
 }

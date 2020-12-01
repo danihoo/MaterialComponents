@@ -58,16 +58,16 @@ dependencies {
 The MaterialEditText is designed following the [Google Material Guidelines for text fields](https://material.io/develop/android/components/text-fields). It uses classes from the Material Library for Android.
 
 ** Outlined text field **
-![alt text](https://github.com/danihoo/MaterialComponents/blob/master/EditTextOutlined.jpg?raw=true)
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextOutlined.PNG?raw=true)
 
 ** Outlined text field (on error) **
-![alt text](https://github.com/danihoo/MaterialComponents/blob/master/EditTextOutlinedError.jpg?raw=true)
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextOutlinedError.PNG?raw=true)
 
 ** Filled text field **
-![alt text](https://github.com/danihoo/MaterialComponents/blob/master/EditTextFilled.jpg?raw=true)
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextFilled.PNG?raw=true)
 
 ** Filled text field (on error) **
-![alt text](https://github.com/danihoo/MaterialComponents/blob/master/EditTextFilledError.jpg?raw=true)
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextFilledError.PNG?raw=true)
 
 
 #### Use in XML
@@ -91,26 +91,16 @@ To decide whether to use the Filled or Outlined text field you need to define a 
 
 The following list contains special attributes you can use. The MaterialEditText class directly inherits from TextInputLayout in the material library. Therefore [all attributes of this class](https://developer.android.com/reference/com/google/android/material/textfield/TextInputLayout#xml-attributes) can be used. Those attributes are not mentioned here.
 
-| Attribute | Description |
-|-----------|-------------|
-|android:text||
-|android:textColor||
-|android:digits||
-|android:inputType||
-|app:error||
-|app:hintTextColor||
-|app:editTextHint||
-|app:editTextError||
-
-        <attr name="android:text" format="string" />
-        <attr name="android:textColor" format="reference|color" />
-        <attr name="android:digits" format="string" />
-        <attr name="android:inputType">
-            <!-- For documentation see {@link android.text.InputType} -->
-        <attr name="error" format="string" />
-        <attr name="editTextHint" format="string" />
-        <attr name="editTextError" format="string" />
-        <attr name="hintTextColor" format="reference|color" />
+| Attributes      | Methods         | Description |
+|-----------------|-----------------|-------------|
+|android:text     |||
+|android:textColor|||
+|android:digits   |||
+|android:inputType|||
+|app:error        |||
+|app:hintTextColor|||
+|app:editTextHint |||
+|app:editTextError|||
 
 
 #### Text field theming

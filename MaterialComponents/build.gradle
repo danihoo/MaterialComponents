@@ -19,10 +19,37 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    libraryVariants.all { variant ->
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+            source = project.android.sourceSets.main.java.srcDirs
+
+            doFirst {
+                classpath = project.files(variant.javaCompileProvider.get().classpath.files, project.android.getBootClasspath())
+            }
+
+            if (JavaVersion.current().isJava8Compatible()) {
+                options.addStringOption('Xdoclint:none', '-quiet')
+            }
+
+            exclude "**/R"
+            exclude "**/R.**"
+            exclude "**/R\$**"
+            exclude "**/BuildConfig*"
+
+            options.windowTitle = "API Documentation (${project.android.defaultConfig.versionName})"
+            options.memberLevel = JavadocMemberLevel.PROTECTED
+            options.linkSource false
+            options.author = false
+
+            failOnError false
+            dependsOn "bundleLibCompileToJar${variant.name.capitalize()}"
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0-alpha03'
+    implementation 'com.google.android.material:material:1.3.0-alpha04'
 }

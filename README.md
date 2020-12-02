@@ -5,9 +5,15 @@
 1. [Quick Start](#quick-start)
 1. [Documentation](#documentation)
     1. [MaterialEditText](#materialedittext)
+        1. [Use in XML](#use-text-field-in-xml)
+        1. [Attributes](#text-field-attributes)
+        1. [Theming](#text-field-theming)
     1. [MaterialSpinner](#materialspinner-exposed-dropdown-menu)
-    1. [FloatingActionButton](#floatingactionbutton-wip)
-    1. [FullscreenDialog](#fullscreendialog-wip)
+        1. [Use in XML](#use-spinner-in-xml)
+        1. [Attributes](#spinner-attributes)
+        1. [Theming](#spinner-theming)
+    1. [FloatingActionButton](#floatingactionbutton)
+    1. [FullscreenDialog](#fullscreendialog)
 1. [License](#license)
 1. [About](#about)
 
@@ -22,7 +28,7 @@ If you are missing some functionality, please submit an issue to give me the cha
 As a first step the following components will be available
 
 * <b>MaterialEditText</b> - Outlined and filled Material text fields
-* (coming soon) <b>MaterialSpinner</b> - Use a spinner and material design similar to the standard spinner in android
+* <b>MaterialSpinner</b> - Use a spinner with material design similar to the standard spinner in Android
 * (coming soon) <b>FloatingActionButton</b> - Material fabs with custom colours and design 
 * (coming soon) <b>FullscreenDialog</b> - A customizable Fullscreen Dialog with toolbar and animations
 
@@ -57,20 +63,27 @@ dependencies {
 
 The MaterialEditText is designed following the [Google Material Guidelines for text fields](https://material.io/develop/android/components/text-fields). It uses classes from the Material Library for Android.
 
-** Outlined text field **
+<b>Outlined text field</b>
+
 ![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextOutlined.PNG?raw=true)
 
-** Outlined text field (on error) **
+
+<b>Outlined text field (on error)</b>
+
 ![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextOutlinedError.PNG?raw=true)
 
-** Filled text field **
+
+<b>Filled text field</b>
+
 ![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextFilled.PNG?raw=true)
 
-** Filled text field (on error) **
+
+<b>Filled text field (on error)</b>
+
 ![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextFilledError.PNG?raw=true)
 
 
-#### Use in XML
+#### Use text field in XML
 
 To decide whether to use the Filled or Outlined text field you need to define a theme in your styles.xml (see [Theming](#text-field-theming)). In xml you can go like the following example. For an overview of the attributes you can use see [Attributes](#text-field-attributes).
 
@@ -80,43 +93,179 @@ To decide whether to use the Filled or Outlined text field you need to define a 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Hint"
-            android:paddingBottom="12dp"
-            android:text="Error"
+            android:text="Text"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:errorEnabled="true" />
 ```
 
+
 #### Text field attributes
 
-The following list contains special attributes you can use. The MaterialEditText class directly inherits from TextInputLayout in the material library. Therefore [all attributes of this class](https://developer.android.com/reference/com/google/android/material/textfield/TextInputLayout#xml-attributes) can be used. Those attributes are not mentioned here.
+The following list contains special attributes you can use. The MaterialEditText class directly inherits from TextInputLayout in the material library. Therefore [all attributes of this class](https://developer.android.com/reference/com/google/android/material/textfield/TextInputLayout#xml-attributes) can be used, too. Those attributes are not mentioned here.
 
-| Attributes      | Methods         | Description |
-|-----------------|-----------------|-------------|
-|android:text     |||
-|android:textColor|||
-|android:digits   |||
-|android:inputType|||
-|app:error        |||
-|app:hintTextColor|||
-|app:editTextHint |||
-|app:editTextError|||
+| Attributes      |  Description                                         |
+|-----------------|------------------------------------------------------|
+|android:text     | Text shown in the text field                         |
+|android:textColor| Text color of the text shown in the text field       |
+|android:digits   | Digits that are accepted as input (like in EditText) |
+|android:inputType| Input type as used in EditText                       |
+|app:error        | Error text to apply to the layout                    |
+|app:hintTextColor| Color of the hint text (in text field or above)      |
 
 
 #### Text field theming
 
+You can define a custom theme. It is required to inherit from either Widget.MaterialComponents.TextInputLayout.OutlinedBox or Widget.MaterialComponents.TextInputLayout.FilledBox to get the correponding style.
+
+```
+<style name="OutlinedEditTextTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="android:textColor">@color/...</item>
+    <item name="android:textSize">16sp</item>
+
+    <item name="android:textColorHint">@color/...</item>
+    <item name="boxStrokeColor">@color/...</item>
+
+    <item name="android:colorControlNormal">@color/.../item>
+    <item name="counterTextColor">@color/...</item>
+
+    <item name="helperTextTextColor">@color/...</item>
+
+    <item name="boxStrokeErrorColor">@color/...</item>
+    <item name="errorTextColor">@color/...</item>
+    <item name="errorIconColor">@color/text_dark_negative</item>
+    <item name="counterOverflowTextColor">@color/...</item>
+</style>
+```
+
+
+I recommend setting up at least the attributes <i>android:textColorHint</i>, <i>hintTextColor</i> and <i>boxStrokeColor</i> with a color selector, e.g.
+
+```
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/text_dark_accent" android:state_enabled="true" />
+    <item android:color="@color/theme_primary_light" android:state_focused="true" />
+    <item android:color="@color/text_light_disabled" android:state_enabled="false" />
+</selector>
+```
+
 
 ### MaterialSpinner (Exposed Dropdown Menu)
 
+The MaterialSpinner classes are designed following the [Google Material Guidelines for exposed dropdown menus](https://material.io/components/menus#exposed-dropdown-menu). It uses classes from the Material Library for Android.
 
-#### Attributes
+<b>Outlined spinner</b>
 
-#### Theming
-
-### FloatingActionButton (WIP)
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/SpinnerOutlined.PNG?raw=true)
 
 
-### FullscreenDialog (WIP)
+<b>Outlined spinner (on error)</b>
+
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/SpinnerOutlinedError.PNG?raw=true)
+
+
+<b>Filled spinner</b>
+
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/SpinnerFilled.PNG?raw=true)
+
+
+<b>Filled spinner (on error)</b>
+
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/SpinnerFilledError.PNG?raw=true)
+
+
+#### Use spinner in XML
+
+To decide whether to use the Filled or Outlined text field you need to define a theme in your styles.xml (see [Theming](#text-field-theming)). In xml you can go like the following examples. For an overview of the attributes you can use see [Attributes](#spinner-attributes).
+
+```
+    <de.danihoo94.www.materialcomponents.MaterialSpinnerOutlined
+        style="@style/MaterialSpinnerTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="..."
+        app:errorEnabled="true"/>
+
+    <de.danihoo94.www.materialcomponents.MaterialSpinnerFilled
+        style="@style/MaterialSpinnerTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="..."
+        app:errorEnabled="true"/>
+```
+
+
+#### Spinner attributes
+
+The following list contains special attributes you can use. The MaterialSpinner classes inherit from RelativeLayout. Therefore [all attributes of this class](https://developer.android.com/reference/android/widget/RelativeLayout) can be used, too. Those attributes are not mentioned here.
+
+| Attributes                  |  Description                                          |
+|-----------------------------|-------------------------------------------------------|
+|android:text                 | Text shown in the spinner field.                      |
+|android:textColor            | Text color of the text shown in the spinner field.    |
+|android:backgroundTint       | Background color of the view.                         |
+|android:textColorHint        | Hint text color of the hint                           |
+|android:colorControlNormal   | Color of the dropdown arrow                           |
+|android:hint                 | Hint text shown in the spinner field.                 |
+|android:digits               | Digits that are accepted as input (like in EditText). |
+|android:inputType            | Input type as used in EditText.                       |
+|app:error                    | Error text to apply to the layout.                    |
+|app:errorEnabled             | Define if error text is used. This extends the size.  |
+|app:helperText               | Helper text to apply to the layout.                   |
+|app:helperTextEnabled        | Define if helper text is used. This extends the size. |
+|app:hintTextColor            | Color of the hint text (in text field or above).      |
+|app:boxStrokeColor           | Color of the layout stroke                            |
+|app:counterTextColor         | Color of the counter text                             |
+|app:errorTextColor           | Color of the text when an error is set                |
+|app:errorIconColor           | Color of the error icon                               |
+|app:boxStrokeErrorColor      | Color of the box stroke on error                      |
+|app:counterOverflowTextColor | Color of the text if the counter length is exceeded   |
+
+
+#### Spinner theming
+
+You can define a custom theme. The theme does not need a parent. Anyway, if you also use MaterialEditText you can use the same theme that uses a parent like mentioned above.
+
+```
+<style name="MaterialSpinnerTheme">
+    <item name="android:textColor">@color/...</item>
+    <item name="android:textSize">16sp</item>
+
+    <item name="android:textColorHint">@color/...</item>
+    <item name="boxStrokeColor">@color/...</item>
+
+    <item name="android:colorControlNormal">@color/.../item>
+    <item name="counterTextColor">@color/...</item>
+
+    <item name="helperTextTextColor">@color/...</item>
+
+    <item name="boxStrokeErrorColor">@color/...</item>
+    <item name="errorTextColor">@color/...</item>
+    <item name="errorIconColor">@color/text_dark_negative</item>
+    <item name="counterOverflowTextColor">@color/...</item>
+</style>
+```
+
+
+I recommend setting up at least the attributes <i>android:textColorHint</i>, <i>hintTextColor</i> and <i>boxStrokeColor</i> with a color selector, e.g.
+
+```
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/text_dark_accent" android:state_enabled="true" />
+    <item android:color="@color/theme_primary_light" android:state_focused="true" />
+    <item android:color="@color/text_light_disabled" android:state_enabled="false" />
+</selector>
+```
+
+
+### FloatingActionButton
+
+Coming soon...
+
+
+### FullscreenDialog
+
+Coming soon...
 
 
 ## License

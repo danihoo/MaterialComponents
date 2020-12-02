@@ -40,9 +40,8 @@
             <flag name="time" value="0x00000024" />
         </attr>
         <attr name="error" format="string" />
-        <attr name="editTextHint" format="string" />
-        <attr name="editTextError" format="string" />
         <attr name="hintTextColor" format="reference|color" />
+        <attr name="errorIconColor" format="reference|color" />
     </declare-styleable>
 
     <declare-styleable name="MaterialSpinner">
@@ -61,7 +60,7 @@
         <attr name="helperTextTextColor" />
         <attr name="boxStrokeErrorColor" />
         <attr name="errorTextColor" />
-        <attr name="errorIconColor" format="reference|color" />
+        <attr name="errorIconColor" />
         <attr name="counterOverflowTextColor" />
     </declare-styleable>
 

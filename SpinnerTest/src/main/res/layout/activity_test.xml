@@ -19,18 +19,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#dddddd"
-            android:hint="Test"
+            android:hint="Hint"
             android:paddingBottom="24dp"
             app:errorEnabled="true"
             tools:ignore="HardcodedText" />
 
-        <de.danihoo94.www.materialcomponents.MaterialSpinnerFilled
+        <de.danihoo94.www.materialcomponents.MaterialSpinnerOutlined
             android:id="@+id/filled"
             style="@style/SpinnerTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#dddddd"
-            android:hint="Test"
+            android:hint="Hint"
             android:paddingBottom="24dp"
             app:errorEnabled="true"
             app:helperText="I can help you"

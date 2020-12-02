@@ -23,14 +23,6 @@
             tools:ignore="HardcodedText" />
 
         <de.danihoo94.www.materialcomponents.MaterialEditText
-            android:id="@+id/outlined_texthint"
-            style="@style/OutlinedEditTextTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            app:editTextHint="EditText hint (disappears on input)" />
-
-        <de.danihoo94.www.materialcomponents.MaterialEditText
             android:id="@+id/outlined_error"
             style="@style/OutlinedEditTextTheme"
             android:layout_width="match_parent"
@@ -38,14 +30,6 @@
             android:paddingBottom="12dp"
             app:error="Error at outline"
             app:errorEnabled="true" />
-
-        <de.danihoo94.www.materialcomponents.MaterialEditText
-            android:id="@+id/outlined_texterror"
-            style="@style/OutlinedEditTextTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            app:editTextError="Error at EditText" />
 
         <de.danihoo94.www.materialcomponents.MaterialEditText
             android:id="@+id/outlined_textwatcher"
@@ -67,14 +51,6 @@
             tools:ignore="HardcodedText" />
 
         <de.danihoo94.www.materialcomponents.MaterialEditText
-            android:id="@+id/filled_texthint"
-            style="@style/FilledEditTextTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            app:editTextHint="EditText hint (disappears on input)" />
-
-        <de.danihoo94.www.materialcomponents.MaterialEditText
             android:id="@+id/filled_error"
             style="@style/FilledEditTextTheme"
             android:layout_width="match_parent"
@@ -82,14 +58,6 @@
             android:paddingBottom="12dp"
             app:error="Error at outline"
             app:errorEnabled="true" />
-
-        <de.danihoo94.www.materialcomponents.MaterialEditText
-            android:id="@+id/filled_texterror"
-            style="@style/FilledEditTextTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            app:editTextError="Error at EditText" />
 
         <de.danihoo94.www.materialcomponents.MaterialEditText
             android:id="@+id/filled_textwatcher"
@@ -126,6 +94,4 @@
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
-
-
 </ScrollView>

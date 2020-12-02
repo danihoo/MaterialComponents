@@ -113,14 +113,8 @@ public class MaterialEditText extends TextInputLayout {
                 String text = a.getString(R.styleable.MaterialEditText_android_text);
                 editText.setText(text);
 
-                String editTextHint = a.getString(R.styleable.MaterialEditText_editTextHint);
-                editText.setHint(editTextHint);
-
                 String error = a.getString(R.styleable.MaterialEditText_error);
                 setError(error);
-
-                String editTextError = a.getString(R.styleable.MaterialEditText_editTextError);
-                editText.setError(editTextError);
 
                 ColorStateList textColor = a.getColorStateList(R.styleable.MaterialEditText_android_textColor);
                 if (textColor != null) {
@@ -137,6 +131,11 @@ public class MaterialEditText extends TextInputLayout {
                 String digits = a.getString(R.styleable.MaterialEditText_android_digits);
                 if (digits != null) {
                     editText.setKeyListener(DigitsKeyListener.getInstance(digits));
+                }
+
+                ColorStateList errorIconColor = a.getColorStateList(R.styleable.MaterialEditText_errorIconColor);
+                if (errorIconColor != null) {
+                    setErrorIconColor(errorIconColor);
                 }
 
                 int inputType = a.getInt(R.styleable.MaterialEditText_android_inputType, 0);
@@ -211,24 +210,6 @@ public class MaterialEditText extends TextInputLayout {
     }
 
     /**
-     * Get current hint text from TextInputEditText
-     *
-     * @return hint as text
-     */
-    public CharSequence getEditTextHint() {
-        return editText.getHint();
-    }
-
-    /**
-     * Set a hint message at the TextInputEditText
-     *
-     * @param hintText hint text to be assigned, null to clear
-     */
-    public void setEditTextHint(@Nullable CharSequence hintText) {
-        editText.setHint(hintText);
-    }
-
-    /**
      * Set position of cursor in text field
      *
      * @param index index to set cursor to
@@ -253,5 +234,14 @@ public class MaterialEditText extends TextInputLayout {
      */
     public int getSelectionEnd() {
         return editText.getSelectionEnd();
+    }
+
+    /**
+     * Assigns the error text color
+     *
+     * @param color colors to assign
+     */
+    public void setErrorIconColor(ColorStateList color) {
+        setErrorIconTintList(color);
     }
 }

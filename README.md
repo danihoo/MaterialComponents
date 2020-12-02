@@ -80,7 +80,7 @@ The MaterialEditText is designed following the [Google Material Guidelines for t
 
 <b>Filled text field (on error)</b>
 
-![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextFilledError.PNG?raw=true)
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/EditTextFilledError.png?raw=true)
 
 
 #### Use text field in XML
@@ -176,7 +176,7 @@ The MaterialSpinner classes are designed following the [Google Material Guidelin
 
 #### Use spinner in XML
 
-To decide whether to use the Filled or Outlined text field you need to define a theme in your styles.xml (see [Theming](#text-field-theming)). In xml you can go like the following examples. For an overview of the attributes you can use see [Attributes](#spinner-attributes).
+To decide whether to use the Filled or Outlined text field you need to define a theme in your styles.xml (see [Theming](#spinner-theming)). In xml you can go like the following examples. For an overview of the attributes you can use see [Attributes](#spinner-attributes).
 
 ```
     <de.danihoo94.www.materialcomponents.MaterialSpinnerOutlined

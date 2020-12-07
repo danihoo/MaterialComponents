@@ -128,11 +128,6 @@ public class MaterialEditText extends TextInputLayout {
                     editText.setHintTextColor(hintColor);
                 }
 
-                String digits = a.getString(R.styleable.MaterialEditText_android_digits);
-                if (digits != null) {
-                    editText.setKeyListener(DigitsKeyListener.getInstance(digits));
-                }
-
                 ColorStateList errorIconColor = a.getColorStateList(R.styleable.MaterialEditText_errorIconColor);
                 if (errorIconColor != null) {
                     setErrorIconColor(errorIconColor);
@@ -140,6 +135,11 @@ public class MaterialEditText extends TextInputLayout {
 
                 int inputType = a.getInt(R.styleable.MaterialEditText_android_inputType, 0);
                 editText.setInputType(inputType);
+
+                String digits = a.getString(R.styleable.MaterialEditText_android_digits);
+                if (digits != null) {
+                    setKeyListener(DigitsKeyListener.getInstance(digits));
+                }
             } finally {
                 a.recycle();
             }

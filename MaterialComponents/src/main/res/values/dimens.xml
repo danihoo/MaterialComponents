@@ -15,4 +15,16 @@
     <dimen name="spinner_drop_icon_margin_top_filled">17dp</dimen>
     <dimen name="spinner_dropdown_anchor_outlined">70dp</dimen>
     <dimen name="spinner_dropdown_anchor_filled">69dp</dimen>
+    <dimen name="fab_main_size">56dp</dimen>
+    <dimen name="fab_sub_size">44dp</dimen>
+    <dimen name="fab_sub_margin_top">19dp</dimen>
+    <dimen name="fab_sub_margin_bottom">10dp</dimen>
+    <dimen name="fab_sub_text_padding">5dp</dimen>
+    <dimen name="fab_sub_text_size">12sp</dimen>
+    <dimen name="fab_sub_card_margin_start">12dp</dimen>
+    <dimen name="fab_sub_card_margin_top">4dp</dimen>
+    <dimen name="fab_sub_card_margin_end">12dp</dimen>
+    <dimen name="fab_sub_card_margin_bottom">10dp</dimen>
+    <dimen name="fab_sub_card_corner_radius">4dp</dimen>
+    <dimen name="fab_sub_card_elevation">8dp</dimen>
 </resources>

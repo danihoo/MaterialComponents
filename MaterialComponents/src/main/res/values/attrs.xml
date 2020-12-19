@@ -64,7 +64,12 @@
         <attr name="counterOverflowTextColor" />
     </declare-styleable>
 
-    <declare-styleable name="MaterialSpinnerEditText">
-
+    <declare-styleable name="ExpandableFloatingActionButton">
+        <attr name="mainIconTint" format="color|reference" />
+        <attr name="secondaryIconTint" format="color|reference" />
+        <attr name="mainBackgroundTint" format="color|reference" />
+        <attr name="secondaryBackgroundTint" format="color|reference" />
+        <attr name="menu" format="reference" />
+        <attr name="showLabels" format="boolean" />
     </declare-styleable>
 </resources>

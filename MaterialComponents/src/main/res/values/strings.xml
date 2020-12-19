@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="expand">Expand</string>
+    <string name="w_expand">Expand</string>
 </resources>

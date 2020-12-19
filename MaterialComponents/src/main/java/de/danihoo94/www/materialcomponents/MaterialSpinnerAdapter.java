@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 public class MaterialSpinnerAdapter<T> extends ArrayAdapter<T> {
 
     private T selectedObject;
@@ -125,6 +126,7 @@ public class MaterialSpinnerAdapter<T> extends ArrayAdapter<T> {
             selectedPosition = index;
             selectedObject = getItem(index);
             spinner.setText(selectedObject.toString(), false);
+            return true;
         }
         return false;
     }

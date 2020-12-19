@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 public abstract class MaterialSpinner extends RelativeLayout {
     private static final int ANIMATION_DURATION_FADE = 200;
     private TextInputLayout layout;

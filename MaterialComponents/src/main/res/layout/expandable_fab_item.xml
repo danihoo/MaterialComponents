@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/expandable_fab_item_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/fab_sub_card_margin_start"
+        android:layout_marginTop="@dimen/fab_sub_card_margin_top"
+        android:layout_marginEnd="@dimen/fab_sub_card_margin_end"
+        android:layout_marginBottom="@dimen/fab_sub_card_margin_bottom"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/fab_sub_card_corner_radius"
+        app:cardElevation="@dimen/fab_sub_card_elevation">
+
+        <TextView
+            android:id="@+id/expandable_fab_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fab_sub_text_padding"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fab_sub_text_size"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/expandable_fab_item_button"
+        android:layout_width="@dimen/fab_sub_size"
+        android:layout_height="@dimen/fab_sub_size"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="@dimen/fab_sub_margin_top"
+        android:layout_marginBottom="@dimen/fab_sub_margin_bottom"
+        android:clickable="true"
+        android:focusable="true"
+        app:fabCustomSize="@dimen/fab_sub_size"
+        tools:ignore="ContentDescription" />
+
+</merge>

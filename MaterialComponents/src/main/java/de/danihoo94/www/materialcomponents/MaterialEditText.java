@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 public class MaterialEditText extends TextInputLayout {
     private TextInputEditText editText;
 

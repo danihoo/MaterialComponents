@@ -12,7 +12,7 @@
         1. [Use in XML](#use-spinner-in-xml)
         1. [Attributes](#spinner-attributes)
         1. [Theming](#spinner-theming)
-    1. [FloatingActionButton](#floatingactionbutton)
+    1. [ExpandableFloatingActionButton](#expandablefloatingactionbutton)
     1. [FullscreenDialog](#fullscreendialog)
 1. [License](#license)
 1. [About](#about)
@@ -29,7 +29,7 @@ As a first step the following components will be available
 
 * <b>MaterialEditText</b> - Outlined and filled Material text fields
 * <b>MaterialSpinner</b> - Use a spinner with material design similar to the standard spinner in Android
-* (coming soon) <b>FloatingActionButton</b> - Material fabs with custom colours and design 
+* <b>ExpandableFloatingActionButton</b> - Expandable fab that uses menu resources to show multiple options  
 * (coming soon) <b>FullscreenDialog</b> - A customizable Fullscreen Dialog with toolbar and animations
 
 
@@ -258,10 +258,52 @@ I recommend setting up at least the attributes <i>android:textColorHint</i>, <i>
 ```
 
 
-### FloatingActionButton
+### ExpandableFloatingActionButton
 
-Coming soon...
+The ExpandableFloatingActionButton is an alternative for using a set of several FloatingActionButtons. It uses a menu resource to define the actions, that can be issued.
 
+<b>Example</b>
+
+![alt text](https://github.com/danihoo/MaterialComponents/blob/master/screenshots/ExpandableFab.gif?raw=true)
+
+
+
+#### Use ExpandableFloatingActionButton in XML
+
+To decide whether to use the Filled or Outlined text field you need to define a theme in your styles.xml (see [Theming](#text-field-theming)). In xml you can go like the following example. For an overview of the attributes you can use see [Attributes](#text-field-attributes).
+
+```
+<de.danihoo94.www.materialcomponents.ExpandableFloatingActionButton
+        style="@style/ExpandableFabTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:menu="@menu/..."
+        app:mainBackgroundTint="@color/..."
+        app:mainIconTint="@color/..."
+        app:secondaryBackgroundTint="@color/..."
+        app:secondaryIconTint="@color/..."
+        app:showLabels="true" />
+```
+
+
+#### ExpandableFloatingActionButton attributes
+
+The following list contains special attributes you can use. The ExpandableFloatingActionButton class directly inherits from LinearLayout. Therefore [all attributes of this class](https://developer.android.com/guide/topics/ui/layout/linear) can be used, too. Those attributes are not mentioned here.
+
+| Attributes                 | Description                                          |
+|----------------------------|------------------------------------------------------|
+|app:mainBackgroundTint      | Background color of the main fab                     |
+|app:mainIconTint            | Icon color of the main fab                           |
+|app:secondaryBackgroundTint | Background color of the secondary fab                |
+|app:secondaryIconTint       | Icon color of the secondary fab                      |
+|app:showLabels              | Set if text labels shall be shown next to menu items |
+|app:menu                    | Menu resource to inflate                             |
+
+
+#### ExpandableFloatingActionButton theming
+
+You can define a custom theme in the case that you use the ExpandableFloatingActionButton multiple times in your app. I recommend setting at least the four tint colors in a theme.
+  
 
 ### FullscreenDialog
 

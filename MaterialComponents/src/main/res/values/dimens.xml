@@ -4,7 +4,7 @@
     <dimen name="spinner_item_padding_horizontal">16dp</dimen>
     <dimen name="spinner_item_padding_vertical">12dp</dimen>
     <dimen name="spinner_item_text_size">16sp</dimen>
-    <dimen name="spinner_padding_horizontal">12dp</dimen>
+    <dimen name="spinner_padding_horizontal">16dp</dimen>
     <dimen name="spinner_padding_top_outlined">16dp</dimen>
     <dimen name="spinner_padding_bottom_outlined">16dp</dimen>
     <dimen name="spinner_padding_top_filled">25dp</dimen>

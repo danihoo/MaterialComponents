@@ -127,6 +127,7 @@ public class MaterialEditText extends TextInputLayout {
                 ColorStateList hintColor = a.getColorStateList(R.styleable.MaterialEditText_hintTextColor);
                 if (hintColor != null) {
                     editText.setHintTextColor(hintColor);
+                    setHintTextColor(hintColor);
                 }
 
                 ColorStateList errorIconColor = a.getColorStateList(R.styleable.MaterialEditText_errorIconColor);

@@ -114,7 +114,6 @@ The following list contains special attributes you can use. The MaterialEditText
 |android:digits   | Digits that are accepted as input (like in EditText) |
 |android:inputType| Input type as used in EditText                       |
 |app:error        | Error text to apply to the layout                    |
-|app:hintTextColor| Color of the hint text (in text field or above)      |
 
 
 #### Text field theming

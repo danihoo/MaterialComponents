@@ -124,7 +124,7 @@ public class MaterialEditText extends TextInputLayout {
                     editText.setTextColor(Color.parseColor("#000000"));
                 }
 
-                ColorStateList hintColor = a.getColorStateList(R.styleable.MaterialEditText_hintTextColor);
+                ColorStateList hintColor = a.getColorStateList(R.styleable.MaterialEditText_android_textColorHint);
                 if (hintColor != null) {
                     editText.setHintTextColor(hintColor);
                     setHintTextColor(hintColor);

@@ -40,7 +40,7 @@
             <flag name="time" value="0x00000024" />
         </attr>
         <attr name="error" format="string" />
-        <attr name="hintTextColor" format="reference|color" />
+        <attr name="android:textColorHint" format="reference|color" />
         <attr name="errorIconColor" format="reference|color" />
     </declare-styleable>
 

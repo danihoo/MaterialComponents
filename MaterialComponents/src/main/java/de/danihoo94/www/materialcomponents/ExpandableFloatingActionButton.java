@@ -288,23 +288,25 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
                     TranslateAnimation containerAnim = createTranslateAnimation(childCount - i - 1, true);
 
                     final int finalI = i;
-                    containerAnim.setAnimationListener(new OnAnimationEndListener() {
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            AlphaAnimation cardAnim = new AlphaAnimation(0f, 1f);
-                            cardAnim.setDuration(INFLATE_ANIM_DURATION / 3);
-                            cardAnim.setFillAfter(true);
-                            child.card.startAnimation(cardAnim);
+                    if (showLabels) {
+                        containerAnim.setAnimationListener(new OnAnimationEndListener() {
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                AlphaAnimation cardAnim = new AlphaAnimation(0f, 1f);
+                                cardAnim.setDuration(INFLATE_ANIM_DURATION / 3);
+                                cardAnim.setFillAfter(true);
+                                child.card.startAnimation(cardAnim);
 
-                            Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.fab_shake);
-                            shake.setDuration(INFLATE_ANIM_DURATION * 2 / 3);
-                            child.fab.startAnimation(shake);
+                                Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.fab_shake);
+                                shake.setDuration(INFLATE_ANIM_DURATION * 2 / 3);
+                                child.fab.startAnimation(shake);
 
-                            if (finalI == childCount - 2 && listener != null) {
-                                listener.onAnimationEnd(animation);
+                                if (finalI == childCount - 2 && listener != null) {
+                                    listener.onAnimationEnd(animation);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
 
                     child.startAnimation(containerAnim);
                 }
@@ -332,32 +334,42 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
                 if (itemContainer.getChildAt(i) instanceof MenuItemView) {
                     final MenuItemView child = (MenuItemView) itemContainer.getChildAt(i);
 
-                    AlphaAnimation cardAnim = new AlphaAnimation(1f, 0f);
-                    cardAnim.setDuration(INFLATE_ANIM_DURATION / 3);
-                    cardAnim.setFillAfter(true);
-
+                    // first define fab animation
                     final int targetY = childCount - i - 1;
                     final int finalI = i;
-                    cardAnim.setAnimationListener(new OnAnimationEndListener() {
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            TranslateAnimation containerAnim = createTranslateAnimation(targetY, false);
-                            containerAnim.setAnimationListener(new OnAnimationEndListener() {
-                                @Override
-                                public void onAnimationEnd(Animation animation) {
-                                    child.setVisibility(GONE);
+                    Runnable animateFab = () -> {
+                        TranslateAnimation containerAnim = createTranslateAnimation(targetY, false);
+                        containerAnim.setAnimationListener(new OnAnimationEndListener() {
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                child.setVisibility(GONE);
 
-                                    //last animation triggers the given listener
-                                    if (finalI == (childCount - 2) && listener != null) {
-                                        listener.onAnimationEnd(animation);
-                                    }
+                                //last animation triggers the given listener
+                                if (finalI == (childCount - 2) && listener != null) {
+                                    listener.onAnimationEnd(animation);
                                 }
-                            });
-                            child.startAnimation(containerAnim);
-                        }
-                    });
+                            }
+                        });
+                        child.startAnimation(containerAnim);
+                    };
 
-                    child.card.startAnimation(cardAnim);
+                    // if labels are shown first alpha out the labels, otherwise instantly move the fabs behind the main fab
+                    if (showLabels) {
+                        AlphaAnimation cardAnim = new AlphaAnimation(1f, 0f);
+                        cardAnim.setDuration(INFLATE_ANIM_DURATION / 3);
+                        cardAnim.setFillAfter(true);
+
+                        cardAnim.setAnimationListener(new OnAnimationEndListener() {
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                animateFab.run();
+                            }
+                        });
+
+                        child.card.startAnimation(cardAnim);
+                    } else {
+                        animateFab.run();
+                    }
                 }
             }
 

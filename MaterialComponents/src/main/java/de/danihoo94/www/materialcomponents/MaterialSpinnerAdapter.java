@@ -136,15 +136,12 @@ public class MaterialSpinnerAdapter<T> extends ArrayAdapter<T> {
      */
     void attachToOnItemClickListener() {
         final AdapterView.OnItemClickListener listener = spinner.getOnItemClickListener();
-        this.spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedObject = getItem(position);
-                selectedPosition = position;
+        this.spinner.setOnItemClickListener((parent, view, position, id) -> {
+            selectedObject = getItem(position);
+            selectedPosition = position;
 
-                if (listener != null) {
-                    listener.onItemClick(parent, view, position, id);
-                }
+            if (listener != null) {
+                listener.onItemClick(parent, view, position, id);
             }
         });
     }

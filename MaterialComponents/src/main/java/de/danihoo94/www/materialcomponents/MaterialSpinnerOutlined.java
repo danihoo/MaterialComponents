@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 public class MaterialSpinnerOutlined extends MaterialSpinner {
     /**
      * super class constructor
@@ -43,7 +44,7 @@ public class MaterialSpinnerOutlined extends MaterialSpinner {
      * @return layout id
      */
     @Override
-    protected int getLayout() {
+    final protected int getLayout() {
         return R.layout.view_material_spinner_outlined;
     }
 }

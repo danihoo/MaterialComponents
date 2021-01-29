@@ -233,12 +233,7 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
             main.setContentDescription(item.getTitle());
 
             if (listener != null) {
-                main.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listener.onMenuItemClick(item);
-                    }
-                });
+                main.setOnClickListener(v -> listener.onMenuItemClick(item));
             }
         }
     }
@@ -264,12 +259,7 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
         view.fab.setContentDescription(item.getTitle());
 
         if (listener != null) {
-            view.fab.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onMenuItemClick(item);
-                }
-            });
+            view.fab.setOnClickListener(v -> listener.onMenuItemClick(item));
         }
 
         return view;
@@ -467,23 +457,24 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
     public void setMenuListener(final MenuItem.OnMenuItemClickListener listener) {
         this.listener = listener;
 
-        for (int i = 0; i < itemContainer.getChildCount(); i++) {
-            final View view = itemContainer.getChildAt(i);
-            if (view instanceof MenuItemView) {
-                ((MenuItemView) view).fab.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        if (menu.getMenu().size() == 1) {
+            main.setOnClickListener((v) -> listener.onMenuItemClick(menu.getMenu().getItem(0)));
+        } else {
+            for (int i = 0; i < itemContainer.getChildCount(); i++) {
+                final View view = itemContainer.getChildAt(i);
+                if (view instanceof MenuItemView) {
+                    ((MenuItemView) view).fab.setOnClickListener(v -> {
                         if (listener != null) {
-                            for (int i = 0; i < menu.getMenu().size(); i++) {
-                                MenuItem item = menu.getMenu().getItem(i);
+                            for (int i1 = 0; i1 < menu.getMenu().size(); i1++) {
+                                MenuItem item = menu.getMenu().getItem(i1);
                                 if (item.getItemId() == view.getId()) {
                                     listener.onMenuItemClick(item);
                                     break;
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     }

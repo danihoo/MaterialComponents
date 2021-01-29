@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -100,30 +98,17 @@ public abstract class MaterialSpinner extends RelativeLayout {
         dropIcon = findViewById(R.id.view_material_spinner_icon);
         View anchor = findViewById(R.id.view_material_dropdown_anchor);
 
-        spinner.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        spinner.setOnClickListener(view -> showDropDown());
+
+        spinner.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
                 showDropDown();
+            } else {
+                dismissDropDown();
             }
         });
 
-        spinner.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    showDropDown();
-                } else {
-                    dismissDropDown();
-                }
-            }
-        });
-
-        spinner.setOnDismissListener(new AutoCompleteTextView.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                animateDropDown(false);
-            }
-        });
+        spinner.setOnDismissListener(() -> animateDropDown(false));
 
         // setup anchor with unique view
         int id = View.generateViewId();
@@ -207,7 +192,6 @@ public abstract class MaterialSpinner extends RelativeLayout {
                 if (counterOverflowTextColor != null) {
                     setCounterOverflowTextColor(counterOverflowTextColor);
                 }
-
             } finally {
                 a.recycle();
             }
@@ -472,12 +456,7 @@ public abstract class MaterialSpinner extends RelativeLayout {
         this.selectionListener = listener;
 
         if (selectionListener != null) {
-            spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    selectionListener.onSelectionChanged(MaterialSpinner.this, position);
-                }
-            });
+            spinner.setOnItemClickListener((parent, view, position, id) -> selectionListener.onSelectionChanged(MaterialSpinner.this, position));
         } else {
             spinner.setOnItemClickListener(null);
         }

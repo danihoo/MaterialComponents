@@ -3,6 +3,7 @@ package de.danihoo94.www.materialcomponents;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MenuInflater;
@@ -24,6 +25,7 @@ import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -73,8 +75,6 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
         View v = inflate(getContext(), R.layout.expandable_fab, this);
         main = v.findViewById(R.id.expandable_fab_main);
         itemContainer = v.findViewById(R.id.expandable_fab_item_container);
-
-        main.setOnClickListener(this);
 
         if (attrs != null) {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.ExpandableFloatingActionButton, defStyleAttr, 0);
@@ -208,15 +208,39 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
 
         wipeMenuItems();
 
-        for (int i = 0; i < menu.getMenu().size(); i++) {
-            MenuItemView fab = createMenuView(menu.getMenu().getItem(i));
-            itemContainer.addView(fab);
-            fab.setGravity(Gravity.END);
-        }
+        if (menu.getMenu().size() > 1) {
 
-        View space = new Space(getContext());
-        space.setMinimumHeight((int) (CONTAINER_PADDING_BOTTOM_DP * getResources().getDisplayMetrics().density));
-        itemContainer.addView(space);
+            main.setOnClickListener(this);
+
+            Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.round_add_24);
+            main.setImageDrawable(drawable);
+            main.setContentDescription(getContext().getString(R.string.expand));
+
+            for (int i = 0; i < menu.getMenu().size(); i++) {
+                MenuItemView fab = createMenuView(menu.getMenu().getItem(i));
+                itemContainer.addView(fab);
+                fab.setGravity(Gravity.END);
+            }
+
+            View space = new Space(getContext());
+            space.setMinimumHeight((int) (CONTAINER_PADDING_BOTTOM_DP * getResources().getDisplayMetrics().density));
+            itemContainer.addView(space);
+        } else {
+            final MenuItem item = menu.getMenu().getItem(0);
+            main.setId(item.getItemId());
+
+            main.setImageDrawable(item.getIcon());
+            main.setContentDescription(item.getTitle());
+
+            if (listener != null) {
+                main.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onMenuItemClick(item);
+                    }
+                });
+            }
+        }
     }
 
     /**
@@ -258,44 +282,46 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
      */
     private void expand(final OnAnimationEndListener listener) {
 
-        Animation rotate = AnimationUtils.loadAnimation(getContext(), R.anim.fab_rotate_expand);
-        main.startAnimation(rotate);
+        if (menu.getMenu().size() > 1) {
 
-        final int childCount = itemContainer.getChildCount();
+            Animation rotate = AnimationUtils.loadAnimation(getContext(), R.anim.fab_rotate_expand);
+            main.startAnimation(rotate);
 
-        for (int i = 0; i < childCount; i++) {
-            if (itemContainer.getChildAt(i) instanceof MenuItemView) {
-                final MenuItemView child = (MenuItemView) itemContainer.getChildAt(i);
-                child.setVisibility(VISIBLE);
-                child.card.setVisibility(INVISIBLE);
+            final int childCount = itemContainer.getChildCount();
 
-                TranslateAnimation containerAnim = createTranslateAnimation(childCount - i - 1, true);
+            for (int i = 0; i < childCount; i++) {
+                if (itemContainer.getChildAt(i) instanceof MenuItemView) {
+                    final MenuItemView child = (MenuItemView) itemContainer.getChildAt(i);
+                    child.setVisibility(VISIBLE);
+                    child.card.setVisibility(INVISIBLE);
 
-                final int finalI = i;
-                containerAnim.setAnimationListener(new OnAnimationEndListener() {
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        AlphaAnimation cardAnim = new AlphaAnimation(0f, 1f);
-                        cardAnim.setDuration(INFLATE_ANIM_DURATION / 3);
-                        cardAnim.setFillAfter(true);
-                        child.card.startAnimation(cardAnim);
+                    TranslateAnimation containerAnim = createTranslateAnimation(childCount - i - 1, true);
 
-                        Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.fab_shake);
-                        shake.setDuration(INFLATE_ANIM_DURATION * 2 / 3);
-                        child.fab.startAnimation(shake);
+                    final int finalI = i;
+                    containerAnim.setAnimationListener(new OnAnimationEndListener() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            AlphaAnimation cardAnim = new AlphaAnimation(0f, 1f);
+                            cardAnim.setDuration(INFLATE_ANIM_DURATION / 3);
+                            cardAnim.setFillAfter(true);
+                            child.card.startAnimation(cardAnim);
 
-                        if (finalI == childCount - 2 && listener != null) {
-                            listener.onAnimationEnd(animation);
+                            Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.fab_shake);
+                            shake.setDuration(INFLATE_ANIM_DURATION * 2 / 3);
+                            child.fab.startAnimation(shake);
+
+                            if (finalI == childCount - 2 && listener != null) {
+                                listener.onAnimationEnd(animation);
+                            }
                         }
-                    }
-                });
+                    });
 
-                child.startAnimation(containerAnim);
-
+                    child.startAnimation(containerAnim);
+                }
             }
-        }
 
-        expanded = true;
+            expanded = true;
+        }
     }
 
     /**
@@ -305,45 +331,48 @@ public class ExpandableFloatingActionButton extends RelativeLayout implements Vi
      */
     private void collapse(@Nullable final OnAnimationEndListener listener) {
 
-        Animation rotate = AnimationUtils.loadAnimation(getContext(), R.anim.fab_rotate_collapse);
-        main.startAnimation(rotate);
+        if (menu.getMenu().size() > 1) {
 
-        final int childCount = itemContainer.getChildCount();
+            Animation rotate = AnimationUtils.loadAnimation(getContext(), R.anim.fab_rotate_collapse);
+            main.startAnimation(rotate);
 
-        for (int i = 0; i < childCount; i++) {
-            if (itemContainer.getChildAt(i) instanceof MenuItemView) {
-                final MenuItemView child = (MenuItemView) itemContainer.getChildAt(i);
+            final int childCount = itemContainer.getChildCount();
 
-                AlphaAnimation cardAnim = new AlphaAnimation(1f, 0f);
-                cardAnim.setDuration(INFLATE_ANIM_DURATION / 3);
-                cardAnim.setFillAfter(true);
+            for (int i = 0; i < childCount; i++) {
+                if (itemContainer.getChildAt(i) instanceof MenuItemView) {
+                    final MenuItemView child = (MenuItemView) itemContainer.getChildAt(i);
 
-                final int targetY = childCount - i - 1;
-                final int finalI = i;
-                cardAnim.setAnimationListener(new OnAnimationEndListener() {
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        TranslateAnimation containerAnim = createTranslateAnimation(targetY, false);
-                        containerAnim.setAnimationListener(new OnAnimationEndListener() {
-                            @Override
-                            public void onAnimationEnd(Animation animation) {
-                                child.setVisibility(GONE);
+                    AlphaAnimation cardAnim = new AlphaAnimation(1f, 0f);
+                    cardAnim.setDuration(INFLATE_ANIM_DURATION / 3);
+                    cardAnim.setFillAfter(true);
 
-                                //last animation triggers the given listener
-                                if (finalI == (childCount - 2) && listener != null) {
-                                    listener.onAnimationEnd(animation);
+                    final int targetY = childCount - i - 1;
+                    final int finalI = i;
+                    cardAnim.setAnimationListener(new OnAnimationEndListener() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            TranslateAnimation containerAnim = createTranslateAnimation(targetY, false);
+                            containerAnim.setAnimationListener(new OnAnimationEndListener() {
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    child.setVisibility(GONE);
+
+                                    //last animation triggers the given listener
+                                    if (finalI == (childCount - 2) && listener != null) {
+                                        listener.onAnimationEnd(animation);
+                                    }
                                 }
-                            }
-                        });
-                        child.startAnimation(containerAnim);
-                    }
-                });
+                            });
+                            child.startAnimation(containerAnim);
+                        }
+                    });
 
-                child.card.startAnimation(cardAnim);
+                    child.card.startAnimation(cardAnim);
+                }
             }
-        }
 
-        expanded = false;
+            expanded = false;
+        }
     }
 
     private TranslateAnimation createTranslateAnimation(int targetY, boolean in) {

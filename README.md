@@ -118,7 +118,7 @@ The following list contains special attributes you can use. The MaterialEditText
 
 #### Text field theming
 
-You can define a custom theme. It is required to inherit from either Widget.MaterialComponents.TextInputLayout.OutlinedBox or Widget.MaterialComponents.TextInputLayout.FilledBox to get the correponding style.
+You can define a custom theme. It is required to inherit from either Widget.MaterialComponents.TextInputLayout.OutlinedBox or Widget.MaterialComponents.TextInputLayout.FilledBox to get the corresponding style.
 
 ```
 <style name="OutlinedEditTextTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
